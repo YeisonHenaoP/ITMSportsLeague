@@ -12,6 +12,10 @@ public class LeagueDbContext : DbContext
 
     public DbSet<Team> Teams => Set<Team>();
     public DbSet<Player> Players => Set<Player>();
+    public DbSet<Referee> Referees => Set<Referee>();              
+    public DbSet<Tournament> Tournaments => Set<Tournament>();    
+    public DbSet<TournamentTeam> TournamentTeams => Set<TournamentTeam>(); 
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -70,5 +74,24 @@ public class LeagueDbContext : DbContext
             entity.HasIndex(p => new { p.TeamId, p.Number })
                   .IsUnique();
         });
+        // ── Referee Configuration ──
+        modelBuilder.Entity<Referee>(entity =>
+        {
+            entity.HasKey(r => r.Id);
+            entity.Property(r => r.FirstName)
+                  .IsRequired()
+                  .HasMaxLength(80);
+            entity.Property(r => r.LastName)
+                  .IsRequired()
+                  .HasMaxLength(80);
+            entity.Property(r => r.Nationality)
+                  .IsRequired()
+                  .HasMaxLength(80);
+            entity.Property(r => r.CreatedAt)
+                  .IsRequired();
+            entity.Property(r => r.UpdatedAt)
+                  .IsRequired(false);
+        });
+
     }
 }
