@@ -58,3 +58,9 @@ app.MapControllers();
 
 app.Run();
 
+// ── Repositories (agregar) ──
+builder.Services.AddScoped<IMatchRepository, MatchRepository>();
+
+// ── Services (agregar) ──
+builder.Services.AddScoped<IMatchService, MatchService>();
+
